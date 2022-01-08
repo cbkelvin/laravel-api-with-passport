@@ -19,9 +19,16 @@ use App\Http\Controllers\Api\BookController;
 Route::post('register', [Authorcontroller::class, 'register']);
 Route::post('login', [AuthorController::class, 'login']);
 
-Route::group(['middleware'=>['auth:api']], function(){
+Route::group(["middleware" => ["auth:api"]], function(){
     Route::get('profile', [AuthorController::class, 'profile']);
-    Route::get('logout', [AuthorController::class, 'logout']);
+    Route::post('logout', [AuthorController::class, 'logout']);
+
+    Route::post('create-book', [BookController::class, 'createBook']);
+    Route::get('list-book', [BookController::class, 'listBook']);
+    Route::get('single-book/{id}', [BookController::class, 'singleBook']);
+    Route::post('update-book/{bookid}', [BookController::class, 'updateBook']);
+    Route::get('delete-book/bookid', [BookController::class, 'deleteBook']);
+    
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

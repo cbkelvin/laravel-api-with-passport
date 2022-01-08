@@ -17,7 +17,7 @@ class CreateAuthorsTable extends Migration
             $table->id();
             $table->string('name', 120);
             $table->string('email', 120);
-            $table->string('passwword', 120);
+            $table->string('password', 120);
             $table->string('phone_no', 30);
         });
     }
