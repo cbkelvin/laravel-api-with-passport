@@ -27,7 +27,7 @@ Route::group(["middleware" => ["auth:api"]], function(){
     Route::get('list-book', [BookController::class, 'listBook']);
     Route::get('single-book/{id}', [BookController::class, 'singleBook']);
     Route::post('update-book/{bookid}', [BookController::class, 'updateBook']);
-    Route::get('delete-book/bookid', [BookController::class, 'deleteBook']);
+    Route::get('delete-book/{bookid}', [BookController::class, 'deleteBook']);
     
 });
 
