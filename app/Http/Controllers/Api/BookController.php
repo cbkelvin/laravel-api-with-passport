@@ -68,10 +68,49 @@ class BookController extends Controller
    }
    public function updateBook(Request $request , $bookid)
    {
+      $author_id = auth()->user()->id;
+      if(Book::where(["author_id"=>$author_id, "id"=>$bookid])->exists())
+      {
+        $book = Book::find($bookid);
 
+        $book->title = isset($request->title) ? $request->title : $book->title;
+        $book->description = isset($request->description) ? $request->description : $book->description;
+        $book->book_code = isset($request->book_code) ? $request->book_code : $book->book_code;
+
+        $book -> save();
+
+        return response()->json([
+           'status' => 1,
+           'message' => 'updated successfully'
+        ]);
+      }
+      else{
+
+         return response()->json([
+            'status'=> 0,
+            'message' => 'no data'
+         ]);
+      }
+     
    }
    public function deleteBook($bookid)
    {
+       $author_id = auth()->user()->id;
 
+       if( Book::where(["author_id"=> $author_id, "id"=>$bookid])->exists() )
+       {
+          $book = Book::find($bookid);
+          $book->delete();
+
+          return response()->json([
+             'status'=> true,
+             'message'=> 'succefully deleted'
+          ]);
+       }else{
+          return response()->json([
+             'status'=>0,
+             'message'=>'no available data'
+          ]);
+       }
    }
 }
